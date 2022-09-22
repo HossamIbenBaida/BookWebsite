@@ -49,11 +49,11 @@
                 {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
-                    {{Form::hidden('id',$category->id)}}  
+                    {{Form::hidden('id',$categorie->id)}}  
                     {{-- <label for="exampleInputEmail1">Category name</label>--}}
                     {{Form::label('', 'Category name' ,['for'=>'exampleInputEmail1'])}}
                      {{-- <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" placeholder="Enter category">--}}
-                    {{Form::text('category_name', $category->category_name ,['class'=>'form-control' ,'id'=>'exampleInputEmail1', 'placeholder'=>'Enter category'])}}
+                    {{Form::text('category_name', $categorie->categorie ,['class'=>'form-control' ,'id'=>'exampleInputEmail1', 'placeholder'=>'Enter category'])}}
                   </div>
                 </div>
                 <!-- /.card-body -->

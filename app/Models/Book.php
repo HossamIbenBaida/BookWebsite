@@ -14,7 +14,10 @@ class Book extends Model
         $query->where('categorie' ,'like' , '%'.request('category').'%');
        }
        if($filters['search'] ?? false) {
-        $query->where('titre' ,'like' , '%'.request('search').'%');
+        $query->where('titre' ,'like' , '%'.request('search').'%' );
+       }
+       if($filters['tags'] ?? false) {
+        $query->where('tags' ,'like' , '%'.request('tags').'%' );
        }
 
     }

@@ -8,8 +8,9 @@ use App\Models\Book;
 class BookController extends Controller
 {
    public function home(){
-    $books = Book::latest()->filter(request(['category','search']))->get();
-    return view('client.home')->with('books',$books);
+    $categories=Category::all();
+    $books = Book::latest()->filter(request(['category','search','tags']))->get();
+    return view('client.home' , compact(['books' , 'categories']));
    }
 
    public function allbooks(){
@@ -21,12 +22,24 @@ class BookController extends Controller
     $categories=Category::all()->pluck('categorie','categorie');
     return view('admin.editbook' , compact(['book' , 'categories']));
    }
+   public function deletebook($id){
+    $book=Book::find($id);
+    if($book->book_file != 'Null'){
+        Storage::delete('public/pdf_files/'.$book->book_file);
+    }
 
+    if($book->image != 'noimage.jpg'){
+        Storage::delete('public/book_images/'.$book->image);
+    }
+    $book->delete();
+    return redirect('/books')->with('status','the book has been successfully deleted !!');
+   }
    public function bookdetail($id){
     $book=Book::find($id);
+    $categories=Category::all();
     $tags = explode (",", $book->tags);
 
-    return view('client.bookdetail', compact(['book' , 'tags']));
+    return view('client.bookdetail', compact(['book' , 'tags' ,'categories']));
     
    }
 

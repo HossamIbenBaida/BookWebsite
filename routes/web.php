@@ -16,19 +16,26 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', [BookController::class ,'home']);
-Route::get('/addbook', [BookController::class ,'addbook']);
-Route::post('/savebook', [BookController::class ,'savebook']);
-Route::post('/updatebook', [BookController::class ,'updatebook']);
 Route::get('/bookdetail/{id}', [BookController::class ,'bookdetail']);
 Route::get('/books', [BookController::class ,'allbooks']);
-Route::get('/editbook/{id}', [BookController::class ,'editbook']);
 Route::get('/telecharger', [BookController::class ,'telecharger']);
 Route::get('/telecharger/{id}', [BookController::class ,'direct_link']);
 
+Route::get('/adminlogin', [AdminController::class ,'adminlogin'])->middleware('notadmin');
+Route::post('/access_account', [AdminController::class ,'access_account']);
 
-Route::get('/admin', [AdminController::class ,'admin']);
-
-
-
-Route::get('/addcategory', [CategoryController::class ,'addcategorie']);
-Route::post('/savecategory', [CategoryController::class ,'savecategory']);
+Route::middleware('admin')->group(function(){
+        Route::get('/admin', [AdminController::class ,'admin']);
+        Route::get('/logout', [AdminController::class ,'logout']);
+        Route::get('/addcategory', [CategoryController::class ,'addcategorie']);
+        Route::post('/savecategory', [CategoryController::class ,'savecategory']);
+        Route::get('/categories', [CategoryController::class ,'allcategories']);
+        Route::get('/edit_category/{id}', [CategoryController::class ,'edit_category']);
+        Route::post('/updatecategory', [CategoryController::class ,'updatecategory']);
+        Route::get('/delete_category/{id}', [CategoryController::class ,'deletecategory']); 
+        Route::get('/addbook', [BookController::class ,'addbook']);
+        Route::post('/savebook', [BookController::class ,'savebook']);
+        Route::post('/updatebook', [BookController::class ,'updatebook']);
+        Route::get('/editbook/{id}', [BookController::class ,'editbook']);
+        Route::get('/deletebook/{id}', [BookController::class ,'deletebook']);
+});

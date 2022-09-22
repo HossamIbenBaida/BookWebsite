@@ -49,7 +49,7 @@
                     @foreach ($categories as $category)
                     <tr>
                     <td>{{$increment}}</td>
-                    <td>{{$category->category_name}}</td>
+                    <td>{{$category->categorie}}</td>
                     <td>
                       <a href="{{url('/edit_category/'.$category->id)}}" class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
 
